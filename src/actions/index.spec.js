@@ -14,7 +14,7 @@ describe('getSecretWord action creator', ()=> {
     })
 
     test('adds response word to state', () => {
-        const secretWord = 'party';
+        const secretWord = 'train';
         const store = storeFactory();
 
         moxios.wait(() => {

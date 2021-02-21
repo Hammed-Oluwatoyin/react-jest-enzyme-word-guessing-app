@@ -8,6 +8,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './configureStore';
 
+console.log('store.getState()', store.getState())
+
+store.subscribe(() => console.log('store', store.getState()));
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

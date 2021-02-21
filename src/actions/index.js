@@ -8,6 +8,20 @@ export const actionTypes = {
     SET_SECRET_WORD: 'SET_SECRET_WORD'
 };
 
+
+
+
+export const getSecretWord = () => {
+    return (dispatch) => {
+       return axios.get('http://localhost:3030').finally(() => {
+            dispatch({
+                type: actionTypes.SET_SECRET_WORD,
+                payload: 'train'
+            })
+        })
+    }
+}
+
 /**
  * Returns Redux Thunk function that dispatches GUESS_WORD action
  * and (conditionally) CORRECT_GUESS action
@@ -27,18 +41,8 @@ export const actionTypes = {
                 });
 
                 if(guessedWord === secretWord) {
-                    dispatch({type:actionTypes.CORRECT_GUESS});
+                    dispatch({type: actionTypes.CORRECT_GUESS});
                 }
  };
 };
 
-export const getSecretWord = () => {
-    return (dispatch) => {
-       return axios.get('http://localhost:3030').then(response => {
-            dispatch({
-                type: actionTypes.SET_SECRET_WORD,
-                payload: response.data
-            })
-        });
-    }
-}

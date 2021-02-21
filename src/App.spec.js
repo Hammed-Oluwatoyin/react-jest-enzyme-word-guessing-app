@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 
 import {storeFactory} from '../test/testUtils';
-import App from './App';
+import App, { UnconnectedApp } from './App';
 
 /**
  * @function setup
@@ -41,5 +41,27 @@ import App from './App';
      const wrapper =setup();
      const getSecretWordProp = wrapper.instance().props.getSecretWord;
      expect(getSecretWordProp).toBeInstanceOf(Function);
+   })
+
+
+   test('`getSecretWord` run on App mount', () => {
+     const getSecretWordMock = jest.fn();
+
+     const props = {
+       getSecretWord: getSecretWordMock,
+       success: false,
+       guessedWords: [],
+     }
+
+     //set up app component with get SecretWordMock as the getSecretWord prop
+     const wrapper = shallow(<UnconnectedApp getSecretWord={getSecretWordMock} {...props} />)
+
+     //run lifecyle method
+     wrapper.instance().componentDidMount();
+
+     //check to see if mock ran
+     const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+
+     expect(getSecretWordCallCount).toBe(1);
    })
  });
